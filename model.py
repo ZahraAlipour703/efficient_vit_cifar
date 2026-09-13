@@ -18,8 +18,7 @@ class PatchEmbed(nn.Module):
         self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)
 
     def forward(self, x):
-        # x: (B, C, H, W) -> (B, n_patches, embed_dim)
-        x = self.proj(x)  # (B, embed_dim, H/p, W/p)
+        x = self.proj(x)
         x = x.flatten(2).transpose(1, 2)
         return x
 
@@ -86,7 +85,7 @@ class TransformerBlock(nn.Module):
 class EfficientViT(nn.Module):
     """
     Tiny / Efficient Vision Transformer tailored for CIFAR-10 (32x32).
-    ~1-3M parameters depending on config — runs comfortably on CPU.
+    Configurable size. Default ~2.7M params.
     """
     def __init__(
         self,
