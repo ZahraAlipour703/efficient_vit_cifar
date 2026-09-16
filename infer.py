@@ -68,9 +68,8 @@ def main():
     model = load_model(args.checkpoint, device)
     transform = get_test_transform()
     test_set = datasets.CIFAR10(root=args.data_dir, train=False, download=False,
-                                transform=None)  # raw for visualization
+                                transform=None)
 
-    # Pick random samples
     indices = np.random.choice(len(test_set), args.num_samples, replace=False)
 
     fig, axes = plt.subplots(2, 4, figsize=(12, 6))
